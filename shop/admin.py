@@ -6,7 +6,7 @@ from .models import Category, Product
 class CategoryAdmin(admin.ModelAdmin):
     '''Admin View for Category'''
 
-    list_display = ('name','slug')
+    list_display = ['name','slug']
     prepopulated_fields = {'slug':('name',)}
 
 
@@ -14,10 +14,10 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     '''Admin View for Product'''
 
-    list_display = ('name','slug','price',
-                    'available','created', 'updated')
-    list_filter = ('available','created', 'updated')
-    list_editable = ('price', 'available')
+    list_display = ['name','slug','price',
+                    'available','created', 'updated']
+    list_filter = ['available','created', 'updated']
+    list_editable = ['price', 'available']
     prepopulated_fields = {'slug':('name',)}
 
 
