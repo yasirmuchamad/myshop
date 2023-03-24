@@ -22,7 +22,7 @@
         </thead>
         <tbody>
             
-            {% for item in Cart %}
+            {% for item in cart %}
                 
                 {% with product=item.product %}
                     <tr>
@@ -38,15 +38,22 @@
                             </a>
                         </td>
                         <td>{{ product.name }}</td>
-                        <td>{{ item.quantity }}</td>
+                        <td>
+                            <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                                {{ item.update_quantity_form.quantity }}
+                                {{ item.update_quantity_form.override }}
+                                <input type="submit" value="update">
+                                {% csrf_token %}
+                            </form>
+                        </td>
                         <td>
                             <form action="{% url 'cart:cart_remove' product.id %}" method="post">
                                 <input type="submit" value="Remove">
                                 {% csrf_token %}
                             </form>
                         </td>
-                        <td class="num">${{ item.price }}</td>
-                        <td class="num">${{ item.total_price }}</td>
+                        <td class="num">Rp {{ item.price }}</td>
+                        <td class="num">Rp {{ item.total_price }}</td>
                     </tr>
                 {% endwith %}
                     
@@ -54,13 +61,13 @@
             <tr class="total">
                 <td>Total</td>
                 <td colspan="4"></td>
-                <td class="num">Rp{{ cart.get_total_price }}</td>
+                <td class="num">Rp {{ cart.get_total_price }}</td>
             </tr>
         </tbody>
     </table>
     <p class="text-right">
         <a href="{% url 'shop:product_list' %}" class="button-light">Continue Shoping</a>
-        <a href="#" class="button">Checkout</a>
+        <a href="{% url 'orders:order_create' %}" class="button">Checkout</a>
     </p>
 {% endblock content %}
     

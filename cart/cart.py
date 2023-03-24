@@ -10,7 +10,6 @@ class Cart():
         if not cart:
             # save empty cart in the session
             cart = self.session[settings.CART_SESSION_ID] = {}
-            print(self.session)
         self.cart = cart    
 
     
